@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('./backend/models/db');
+const pool = require('./database/data/db');
 
 // Roteamento Rota Home Principal ('/')
 const homeRoutes = require('./backend/routes/homeRoutes');
