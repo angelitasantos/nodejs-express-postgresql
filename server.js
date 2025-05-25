@@ -9,6 +9,9 @@ router.get('/', pageRoutes.home);
 router.get('/sobre', pageRoutes.sobre);
 router.get('/contato', pageRoutes.contato);
 
+router.use(express.urlencoded({ extended: true }));
+router.post('/enviar-contato', pageRoutes.salvarContato);
+
 // Rota /api (retorna JSON)
 router.get('/api', (req, res) => {
     res.json({ status: 'OK', message: 'API funcionando!' });

@@ -9,6 +9,14 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
+// Função para executar queries
+exports.query = (text, params) => pool.query(text, params);
+
+// Teste opcional (remova depois)
+pool.query('SELECT * FROM contatos LIMIT 1')
+    .then(() => console.log('✅ Tabela contatos verificada'))
+    .catch(err => console.error('❌ Erro na tabela contatos:', err.message));
+
 // Função para testar a conexão
 async function testConnection() {
     try {
