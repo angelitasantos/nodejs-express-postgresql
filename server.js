@@ -19,11 +19,17 @@ router.get('/api', (req, res) => {
 // GET /db/tabelacontatos - Teste completo da tabela contatos
 if (process.env.NODE_ENV !== 'production') {
     router.use('/db', dbTests);
+} else {
+    router.use('/db', (req, res) => {
+        res.status(404).json({ 
+            error: 'Endpoint desativado em produção'
+        });
+    });
 }
 
 // Middleware genérico para outras rotas inexistentes
 router.use((req, res) => {
-  res.redirect('/');
+    res.redirect('/');
 });
 
 // Exporta o router para ser usado no app.js
