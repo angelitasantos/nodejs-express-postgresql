@@ -5,15 +5,11 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Rota principal (/)
-app.get('/', (req, res) => {
-  res.send(`
-    <h1>Página Inicial</h1>
-    <p>Sem views, HTML direto na rota!</p>
-  `);
-});
+// Importa todas as rotas do server.js
+const routes = require('./server.js');
+app.use('/', routes); // Todas as rotas serão acessíveis a partir de /
 
 // Inicia o servidor
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
