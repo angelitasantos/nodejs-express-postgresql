@@ -1,0 +1,26 @@
+🔧 Estrutura do Projeto
+
+├── backend/             # Lógica de negócio
+│   ├── controllers/     # Controladores de cada módulo
+│   ├── models/          # Acesso aos dados (consultas SQL)
+│   ├── routes/          # Rotas da API
+│   └── utils/           # Funções auxiliares
+│
+├── database/            # Scripts e arquivos de dados
+│   ├── data/            # Arquivos .json ou dados brutos
+│   └── sql/             # Scripts de criação de tabelas
+│   └── seeds/           # Scripts para popular as tabelas
+│
+├── frontend/            # Interface visual do sistema
+│   ├── static/          # CSS, JS, imagens
+│   └── templates/       # Views e templates (HTML/EJS)
+│
+├── docs/                # Documentação do projeto
+│   └── estrutura.txt    # Estrutura de diretórios e arquivos
+│
+├── app.js               # Arquivo principal (Express)
+├── .env                 # Variáveis de ambiente
+├── .gitignore           # Ignora arquivos sensíveis/desnecessários│
+├── package.json         # Dependências e scripts
+└── README.md            # Documentação principal
+└── README_DEV.md        # Documentação ambiente de desenvolvimento
