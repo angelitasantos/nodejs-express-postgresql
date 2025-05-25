@@ -2,12 +2,13 @@
   "name": "nodejs-express-postgresql",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/angelitasantos/nodejs-express-postgresql/issues"
   },
-  "homepage": "https://github.com/angelitasantos/nodejs-express-postgresql#readme"
+  "homepage": "https://github.com/angelitasantos/nodejs-express-postgresql#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "pg": "^8.16.0"
+  }
 }
