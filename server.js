@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('./database/data/db');
+const dbTests = require('./database/tests/dbTests');
 
 // Rotas ('/')
 const pageRoutes = require('./backend/routes/pageRoutes');
@@ -13,22 +14,16 @@ router.get('/api', (req, res) => {
     res.json({ status: 'OK', message: 'API funcionando!' });
 });
 
-// Testar banco de dados
-router.get('/testdatabase', async (req, res) => {
-    try {
-        const result = await pool.query('SELECT NOW() as current_time');
-        res.json({
-            status: 'success',
-            message: 'Conexão com o banco de dados OK',
-            time: result.rows[0].current_time
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: 'error',
-            message: 'Falha na conexão com o banco de dados',
-            error: error.message
-        });
-    }
+// Importa as rotas de teste
+// GET /db/bancodados - Teste de conexão básica
+// GET /db/tabelacontatos - Teste completo da tabela contatos
+if (process.env.NODE_ENV !== 'production') {
+    router.use('/db', dbTests);
+}
+
+// Middleware genérico para outras rotas inexistentes
+router.use((req, res) => {
+  res.redirect('/');
 });
 
 // Exporta o router para ser usado no app.js
