@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const pool = require('./backend/models/db');
 
-// Rota principal (/)
-router.get('/', (req, res) => {
-    res.send('<h1>Home</h1><p>Olá! Sem views, HTML direto na rota!');
-});
+// Roteamento Rota Home Principal ('/')
+const homeRoutes = require('./backend/routes/homeRoutes');
+router.use('/', homeRoutes);
 
 // Rota /sobre
 router.get('/sobre', (req, res) => {
