@@ -2,14 +2,11 @@ const express = require('express');
 const router = express.Router();
 const pool = require('./database/data/db');
 
-// Roteamento Rota Home Principal ('/')
-const homeRoutes = require('./backend/routes/homeRoutes');
-router.use('/', homeRoutes);
-
-// Rota /sobre
-router.get('/sobre', (req, res) => {
-    res.send('<h1>Sobre</h1><p>Página sobre o projeto.</p>');
-});
+// Rotas ('/')
+const pageRoutes = require('./backend/routes/pageRoutes');
+router.get('/', pageRoutes.home);
+router.get('/sobre', pageRoutes.sobre);
+router.get('/contato', pageRoutes.contato);
 
 // Rota /api (retorna JSON)
 router.get('/api', (req, res) => {
