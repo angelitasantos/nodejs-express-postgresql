@@ -1,4 +1,4 @@
-// home.js - gera o HTML dinamicamente
+// sobre.js - gera o HTML dinamicamente
 document.addEventListener('DOMContentLoaded', () => {
     const app = document.getElementById('app');
 

@@ -16,21 +16,6 @@
             <a href="/contato">Contato</a>
         </nav>
         <div id="app"></div>
-        <form action="/enviar-contato" method="POST">
-            <input type="text" name="nome" placeholder="Seu nome" required>
-            <input type="email" name="email" placeholder="Seu e-mail" required>
-            <input type="text" name="assunto" placeholder="Assunto">
-            <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
-            <button type="submit">Enviar</button>
-            
-            <!-- Feedback para o usuário -->
-            <% if (sucesso) { %>
-                <p class="sucesso">Mensagem enviada com sucesso!</p>
-            <% } %>
-            <% if (erro) { %>
-                <p class="erro">Ocorreu um erro. Tente novamente.</p>
-            <% } %>
-        </form>
         <script src="/js/contato.js"></script>
     </body>
 
