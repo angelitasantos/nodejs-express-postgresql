@@ -18,7 +18,8 @@
 ├── docs/                # Documentação do projeto
 │   └── estrutura.txt    # Estrutura de diretórios e arquivos
 │
-├── app.js               # Arquivo principal (Express)
+├── app.js               # Configuração do Express e inicialização
+├── server.js            # Todas as rotas centralizadas
 ├── .env                 # Variáveis de ambiente
 ├── .gitignore           # Ignora arquivos sensíveis/desnecessários│
 ├── package.json         # Dependências e scripts
