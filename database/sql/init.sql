@@ -28,6 +28,7 @@ CREATE TABLE groups (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     description TEXT,
+    is_active BOOLEAN DEFAULT TRUE,
     level INTEGER UNIQUE NOT NULL, -- Nível hierárquico (1-100)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -38,6 +39,7 @@ CREATE TABLE pages (
     route VARCHAR(100) UNIQUE NOT NULL, -- Ex: '/admin/users'
     name VARCHAR(100) NOT NULL, -- Ex: 'Gerenciar Usuários'
     module VARCHAR(50) NOT NULL, -- Ex: 'admin'
+    is_active BOOLEAN DEFAULT TRUE,
     icon VARCHAR(50) -- Para menus
 );
 
@@ -45,6 +47,7 @@ CREATE TABLE pages (
 CREATE TABLE permissions (
     id SERIAL PRIMARY KEY,
     code VARCHAR(50) UNIQUE NOT NULL, -- Ex: 'users:create'
+    is_active BOOLEAN DEFAULT TRUE,
     description TEXT NOT NULL
 );
 
