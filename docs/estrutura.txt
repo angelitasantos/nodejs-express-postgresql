@@ -8,7 +8,7 @@
 │
 ├── database/            # Scripts e arquivos de dados
 │   ├── data/            # Arquivos .json ou dados brutos
-│   └── sql/             # Scripts de criação de tabelas
+│   ├── sql/             # Scripts de criação de tabelas
 │   └── seeds/           # Scripts para popular as tabelas
 │
 ├── frontend/            # Interface visual do sistema
@@ -21,6 +21,7 @@
 ├── app.js               # Configuração do Express e inicialização
 ├── server.js            # Todas as rotas centralizadas
 ├── .env                 # Variáveis de ambiente
+├── .env.test            # Variáveis de ambiente para testes
 ├── .gitignore           # Ignora arquivos sensíveis/desnecessários│
 ├── package.json         # Dependências e scripts
 └── README.md            # Documentação principal

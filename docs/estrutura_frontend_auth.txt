@@ -1,0 +1,19 @@
+frontend/
+
+├── templates/
+│   └── auth/
+│       ├── admin/
+│       │   ├── grupos/
+│       │   │   ├── grupos_editar.html
+│       │   │   ├── grupos_novo.html
+│       │   │   └── grupos_permissoes.html
+│       │   │   └── grupos.html
+│       │   └── usuarios/
+│       │       └── minha_conta.html
+│       │       ├── usuarios_editar.html
+│       │       ├── usuarios_novo.html
+│       │       └── usuarios.html
+│       └── public/
+│           ├── esqueceu_senha.html
+│           ├── login.html
+│           └── redefinir_senha.html
