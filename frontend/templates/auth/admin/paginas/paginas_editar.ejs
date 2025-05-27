@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Editar Página</title>
+        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+
+    <body>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/grupos">Grupos</a>
+            <a href="/permissoes">Permissões</a>
+            <a href="/paginas">Páginas</a>
+        </nav>
+
+        <div id="app"></div>
+
+        <script>
+            window.csrfToken = "<%= csrfToken %>";
+            window.pageData = <%- JSON.stringify(page || []) %>;
+        </script>
+        <script src="/js/auth/paginas/paginas_editar.js"></script>
+    </body>
+
+</html>

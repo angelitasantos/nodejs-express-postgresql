@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Páginas do Sistema</title>
+        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+
+    <body>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/grupos">Grupos</a>
+            <a href="/permissoes">Permissões</a>
+            <a href="/paginas">Páginas</a>
+        </nav>
+
+        <div id="app"></div>
+
+        <script>
+            window.csrfToken = "<%= csrfToken %>";
+            window.pagesData = <%- JSON.stringify(pages || []) %>;
+        </script>
+        <script src="/js/auth/paginas/paginas_sistema.js"></script>
+    </body>
+
+</html>
