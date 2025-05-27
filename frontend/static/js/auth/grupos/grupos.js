@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <td>${grupo.level}</td>
                     <td>
                         <a href="/grupos/${grupo.id}/editar" class="btn-editar">Editar</a>
+                        <a href="/grupos/${grupo.id}/paginas" class="btn-editar">Páginas</a>
                     </td>
                 `;
                 tbody.appendChild(tr);
