@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = document.getElementById('app');
 
     const title = document.createElement('h1');
-    title.textContent = 'ERRO 505!';
+    title.textContent = 'ERRO 500!';
 
     const paragraph = document.createElement('p');
     paragraph.textContent = 'Erro Interno do Sistema!';
