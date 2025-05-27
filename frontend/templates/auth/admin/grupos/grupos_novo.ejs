@@ -15,7 +15,11 @@
             <a href="/grupos">Grupos</a>
         </nav>
         <div id="app"></div>
+
         <script src="/js/auth/grupos/grupos_novo.js"></script>
+        <script>
+            window.csrfToken = "<%= csrfToken %>";
+        </script>
     </body>
 
 </html>
