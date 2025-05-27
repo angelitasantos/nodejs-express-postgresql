@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS contatos (
 );
 
 -- TABELA PRINCIPAL DE USUÁRIOS
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE users (
 );
 
 -- TABELA DE GRUPOS
-CREATE TABLE groups (
+CREATE TABLE IF NOT EXISTS groups (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     description TEXT,
@@ -34,7 +34,7 @@ CREATE TABLE groups (
 );
 
 -- TABELA DE PÁGINAS/ROTAS DO SISTEMA
-CREATE TABLE pages (
+CREATE TABLE IF NOT EXISTS pages (
     id SERIAL PRIMARY KEY,
     route VARCHAR(100) UNIQUE NOT NULL, -- Ex: '/admin/users'
     name VARCHAR(100) NOT NULL, -- Ex: 'Gerenciar Usuários'
@@ -44,7 +44,7 @@ CREATE TABLE pages (
 );
 
 -- TABELA DE PERMISSÕES (Ações específicas)
-CREATE TABLE permissions (
+CREATE TABLE IF NOT EXISTS permissions (
     id SERIAL PRIMARY KEY,
     code VARCHAR(50) UNIQUE NOT NULL, -- Ex: 'users:create'
     is_active BOOLEAN DEFAULT TRUE,
@@ -52,7 +52,7 @@ CREATE TABLE permissions (
 );
 
 -- RELACIONAMENTO GRUPO-PÁGINA (Quais páginas cada grupo acessa)
-CREATE TABLE group_pages (
+CREATE TABLE IF NOT EXISTS group_pages (
     group_id INTEGER REFERENCES groups(id) ON DELETE CASCADE,
     page_id INTEGER REFERENCES pages(id) ON DELETE CASCADE,
     can_view BOOLEAN DEFAULT FALSE,
@@ -60,17 +60,17 @@ CREATE TABLE group_pages (
 );
 
 -- RELACIONAMENTO GRUPO-PERMISSÃO (Ações permitidas)
-CREATE TABLE group_permissions (
+CREATE TABLE IF NOT EXISTS group_permissions (
     group_id INTEGER REFERENCES groups(id) ON DELETE CASCADE,
     permission_id INTEGER REFERENCES permissions(id) ON DELETE CASCADE,
     PRIMARY KEY (group_id, permission_id)
 );
 
 -- RELACIONAMENTO USUÁRIO-GRUPO
-CREATE TABLE user_groups (
+CREATE TABLE IF NOT EXISTS user_groups (
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     group_id INTEGER REFERENCES groups(id) ON DELETE CASCADE,
     PRIMARY KEY (user_id, group_id)
 );
 
-ALTER TABLE contatos ADD COLUMN responsavel_id INTEGER REFERENCES usuarios(id);
+ALTER TABLE contatos ADD COLUMN responsavel_id INTEGER REFERENCES users(id);

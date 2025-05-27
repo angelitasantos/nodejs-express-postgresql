@@ -1,26 +1,32 @@
 -- Grupos básicos
-INSERT INTO groups (name, description, level) VALUES 
-('SUPER', 'Acesso total ao sistema', 100),
-('ADMIN', 'Administradores do sistema', 80),
-('GERENTE', 'Gerentes de departamento', 60),
-('OPERACIONAL', 'Equipe operacional', 40),
-('VISITANTE', 'Apenas visualização', 20);
+INSERT INTO groups (name, description, level, is_active) VALUES
+('SUPER', 'Acesso total ao sistema', 1, TRUE),
+('ADMIN', 'Administração de usuários e permissões', 2, TRUE),
+('OPERACIONAL', 'Usuário do dia a dia, acesso limitado', 10, TRUE),
+('VISUALIZADOR', 'Somente leitura', 20, TRUE);
 
 -- Páginas principais
-INSERT INTO pages (route, name, module, icon) VALUES
-('/admin', 'Dashboard', 'admin', 'dashboard'),
-('/admin/users', 'Usuários', 'admin', 'people'),
-('/admin/groups', 'Grupos', 'admin', 'groups'),
-('/admin/permissions', 'Permissões', 'admin', 'lock'),
-('/reports', 'Relatórios', 'reports', 'description');
+INSERT INTO pages (route, name, module, icon, is_active) VALUES
+('/usuarios', 'Usuários', 'admin', 'user', TRUE),
+('/usuarios/novo', 'Novo Usuário', 'admin', 'user-plus', TRUE),
+('/grupos', 'Grupos', 'admin', 'users', TRUE),
+('/grupos/novo', 'Novo Grupo', 'admin', 'users-plus', TRUE),
+('/permissoes', 'Permissões', 'admin', 'shield', TRUE),
+('/paginas', 'Páginas do Sistema', 'admin', 'list', TRUE),
+('/dashboard', 'Dashboard', 'geral', 'bar-chart', TRUE),
+('/producao', 'Produção', 'operacional', 'settings', TRUE),
+('/estoque', 'Estoque', 'operacional', 'box', TRUE);
 
 -- Permissões básicas
-INSERT INTO permissions (code, description) VALUES
-('users:create', 'Criar novos usuários'),
-('users:read', 'Visualizar usuários'),
-('users:update', 'Editar usuários'),
-('users:delete', 'Remover usuários'),
-('groups:manage', 'Gerenciar grupos');
+INSERT INTO permissions (code, description, is_active) VALUES
+('users:create', 'Criar usuários', TRUE),
+('users:edit', 'Editar usuários', TRUE),
+('users:delete', 'Excluir usuários', TRUE),
+('groups:create', 'Criar grupos', TRUE),
+('groups:edit', 'Editar grupos', TRUE),
+('groups:delete', 'Excluir grupos', TRUE),
+('permissions:edit', 'Editar permissões', TRUE),
+('pages:manage', 'Gerenciar páginas', TRUE);
 
 -- Atribuição de páginas ao grupo ADMIN
 INSERT INTO group_pages (group_id, page_id, can_view) VALUES
