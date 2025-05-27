@@ -35,35 +35,32 @@ async function testConnection() {
     }
 }
 
-// Função para testar a tabela contatos
-async function checkContactsTable() {
+// Função genérica que verifica qualquer tabela
+async function checkTableExists(tableName) {
     try {
         const client = await pool.connect();
-        
-        // Verifica se a tabela 'contatos' existe no schema público
+
         const query = `
             SELECT EXISTS (
                 SELECT FROM pg_tables
                 WHERE schemaname = 'public' 
-                AND tablename = 'contatos'
+                AND tablename = $1
             );
         `;
         
-        const res = await client.query(query);
+        const res = await client.query(query, [tableName]);
         client.release();
 
-        const tableExists = res.rows[0].exists;
-        
-        if (tableExists) {
-            console.log('✅ Tabela "contatos" encontrada no banco de dados.');
-            return true;
+        const exists = res.rows[0].exists;
+        if (exists) {
+            console.log(`✅ Tabela "${tableName}" encontrada no banco de dados.`);
         } else {
-        console.error('❌ Tabela "contatos" NÃO existe no banco de dados.');
-            return false;
+            console.error(`❌ Tabela "${tableName}" NÃO existe no banco de dados.`);
         }
 
+        return exists;
     } catch (error) {
-        console.error('❌ Erro ao verificar tabela "contatos":', error.message);
+        console.error(`❌ Erro ao verificar tabela "${tableName}":`, error.message);
         return false;
     }
 }
@@ -71,7 +68,14 @@ async function checkContactsTable() {
 // Testar a conexão automaticamente ao carregar o módulo
 testConnection();
 
-// Testar a tabela contatos
-checkContactsTable();
+// Verificar tabelas necessárias
+checkTableExists('contatos');
+checkTableExists('groups');
+checkTableExists('permissions');
+checkTableExists('pages');
+checkTableExists('group_pages');
+checkTableExists('group_permissions');
+checkTableExists('users');
+checkTableExists('user_groups');
 
 module.exports = pool;
