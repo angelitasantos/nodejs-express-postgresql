@@ -50,10 +50,10 @@ router.get('/esqueceu_senha', authRoutes.esqueceuSenha);
 router.get('/redefinir_senha', authRoutes.redefinirSenha);
 
 // Usuários
-router.get('/usuarios', authRoutes.usuarios);
-router.get('/usuarios/novo', authRoutes.usuariosNovo);
-router.get('/usuarios/:id/editar', authRoutes.usuariosEditar);
-router.get('/minha_conta', authRoutes.minhaConta);
+const userRoutes = require('./backend/routes/auth/userRoutes');
+router.use('/usuarios', userRoutes);
+router.get('/usuarios/novo', userRoutes);
+router.get('/usuarios/:id/editar', userRoutes);
 
 // Rotas de grupos
 const groupRoutes = require('./backend/routes/auth/groupRoutes');
