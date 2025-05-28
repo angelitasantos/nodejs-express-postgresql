@@ -1,5 +1,5 @@
-const groupModel = require('../../models/groupModel');
-const model = require('../../models/groupPageModel');
+const groupModel = require('../../models/auth/groupModel');
+const model = require('../../models/auth/groupPageModel');
 
 module.exports = {
 
@@ -22,6 +22,7 @@ module.exports = {
         }
     },
 
+    // ========== ROTAS API ==========
     save: async (req, res) => {
         const groupId = req.params.id;
         const { pageIds } = req.body;

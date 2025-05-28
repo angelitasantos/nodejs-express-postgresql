@@ -1,4 +1,4 @@
-const groupModel = require('../../models/groupModel');
+const groupModel = require('../../models/auth/groupModel');
 const { validationResult } = require('express-validator');
 
 module.exports = {

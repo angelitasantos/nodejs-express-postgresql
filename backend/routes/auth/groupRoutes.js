@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const csrf = require('csurf');
-const groupController = require('../controllers/auth/groupController');
-const { checkGroup } = require('../validators/groupValidator');
+const groupController = require('../../controllers/auth/groupController');
+const { checkGroup } = require('../../validators/groupValidator');
 
 // Configuração do CSRF
 const csrfProtection = csrf({ cookie: true });

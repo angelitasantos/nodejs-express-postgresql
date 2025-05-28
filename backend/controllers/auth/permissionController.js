@@ -1,4 +1,4 @@
-const permissionModel = require('../../models/permissionModel');
+const permissionModel = require('../../models/auth/permissionModel');
 
 module.exports = {
 

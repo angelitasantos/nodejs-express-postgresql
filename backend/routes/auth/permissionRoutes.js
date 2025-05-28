@@ -3,7 +3,7 @@ const router = express.Router();
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 
-const controller = require('../controllers/auth/permissionController');
+const controller = require('../../controllers/auth/permissionController');
 
 // ========== ROTAS DE TEMPLATE ==========
 router.get('/', csrfProtection, controller.renderList);

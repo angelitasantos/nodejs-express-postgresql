@@ -1,4 +1,4 @@
-const pageModel = require('../../models/pageModel');
+const pageModel = require('../../models/auth/pageModel');
 
 module.exports = {
 

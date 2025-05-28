@@ -3,12 +3,12 @@ const router = express.Router();
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 
-const controller = require('../controllers/auth/groupPageController');
+const controller = require('../../controllers/auth/groupPermissionController');
 
 // ========== ROTAS DE TEMPLATE ==========
-router.get('/:id/paginas', csrfProtection, controller.renderForm);
+router.get('/:id/permissoes', csrfProtection, controller.renderForm);
 
 // ========== ROTAS API ==========
-router.post('/:id/paginas', express.json(), controller.save);
+router.post('/:id/permissoes', express.json(), controller.save);
 
 module.exports = router;

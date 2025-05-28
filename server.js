@@ -56,15 +56,15 @@ router.get('/usuarios/:id/editar', authRoutes.usuariosEditar);
 router.get('/minha_conta', authRoutes.minhaConta);
 
 // Rotas de grupos
-const groupRoutes = require('./backend/routes/groupRoutes');
+const groupRoutes = require('./backend/routes/auth/groupRoutes');
 router.use('/grupos', groupRoutes);
 router.get('/grupos/novo', groupRoutes);
 router.get('/grupos/:id/editar', groupRoutes);
 
-const pageRoutes = require('./backend/routes/pageRoutes');
-const permissionRoutes = require('./backend/routes/permissionRoutes');
-const groupPageRoutes = require('./backend/routes/groupPageRoutes');
-const groupPermissionRoutes = require('./backend/routes/groupPermissionRoutes');
+const pageRoutes = require('./backend/routes/auth/pageRoutes');
+const permissionRoutes = require('./backend/routes/auth/permissionRoutes');
+const groupPageRoutes = require('./backend/routes/auth/groupPageRoutes');
+const groupPermissionRoutes = require('./backend/routes/auth/groupPermissionRoutes');
 
 router.use('/paginas', pageRoutes);
 router.use('/permissoes', permissionRoutes);

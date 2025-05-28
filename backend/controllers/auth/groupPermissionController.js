@@ -1,5 +1,5 @@
-const model = require('../../models/groupPermissionModel');
-const groupModel = require('../../models/groupModel');
+const model = require('../../models/auth/groupPermissionModel');
+const groupModel = require('../../models/auth/groupModel');
 
 module.exports = {
 
