@@ -1,3 +1,4 @@
+const userService = require('../../services/auth/userService');
 const userModel = require('../../models/auth/userModel');
 const { validationResult } = require('express-validator');
 
@@ -6,7 +7,7 @@ module.exports = {
     // ========== ROTAS DE TEMPLATE ==========
     renderList: async (req, res) => {
         try {
-            const users = await userModel.getAll();
+            const users = await userService.getUsersForTemplate();
             res.render('auth/admin/usuarios/usuarios', {
                 csrfToken: req.csrfToken(),
                 users
@@ -43,7 +44,7 @@ module.exports = {
     // ========== ROTAS API ==========
     listAPI: async (req, res) => {
         try {
-            const users = await userModel.getAll();
+            const users = await userService.listUsers();
             res.json({ success: true, data: users });
         } catch (error) {
             res.status(500).json({ success: false, error: error.message });
@@ -55,7 +56,7 @@ module.exports = {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-            const newUser = await userModel.create(req.body);
+            const newUser = await userService.createUser(req.body);
             res.json({ success: true, data: newUser });
         } catch (error) {
             res.status(500).json({ success: false, error: error.message });
@@ -64,11 +65,10 @@ module.exports = {
 
     update: async (req, res) => {
         try {
-            const id = req.params.id;
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-            const updatedUser = await userModel.update(id, req.body);
+            const updatedUser = await userService.updateUser(req.params.id, req.body);
             res.json({ success: true, data: updatedUser });
         } catch (error) {
             res.status(500).json({ success: false, error: error.message });
@@ -77,7 +77,10 @@ module.exports = {
 
     toggle: async (req, res) => {
         try {
-            const result = await userModel.toggleActive(req.params.id, req.body.is_active);
+            const result = await userService.toggleUserStatus(
+                req.params.id, 
+                req.body.is_active
+            );
             res.json({ success: true, data: result });
         } catch (error) {
             res.status(500).json({ success: false, error: error.message });
