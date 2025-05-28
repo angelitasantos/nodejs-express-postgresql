@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS group_pages (
 CREATE TABLE IF NOT EXISTS group_permissions (
     group_id INTEGER REFERENCES groups(id) ON DELETE CASCADE,
     permission_id INTEGER REFERENCES permissions(id) ON DELETE CASCADE,
+    can_view BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (group_id, permission_id)
 );
 
@@ -74,3 +75,5 @@ CREATE TABLE IF NOT EXISTS user_groups (
 );
 
 ALTER TABLE contatos ADD COLUMN responsavel_id INTEGER REFERENCES users(id);
+ALTER TABLE group_permissions ADD COLUMN responsavel_id BOOLEAN;
+ALTER TABLE group_permissions RENAME COLUMN responsavel_id TO can_view;
