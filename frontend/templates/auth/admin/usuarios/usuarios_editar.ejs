@@ -14,7 +14,13 @@
             <a href="/">Home</a>
             <a href="/usuarios">Usuários</a>
         </nav>
+
         <div id="app"></div>
+        
+        <script>
+            window.csrfToken = "<%= csrfToken %>";
+            window.userData = <%- JSON.stringify(user || {}) %>;
+        </script>
         <script src="/js/auth/usuarios/usuarios_editar.js"></script>
     </body>
 

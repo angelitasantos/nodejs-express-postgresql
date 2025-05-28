@@ -15,7 +15,16 @@
             <a href="/usuarios">Usuários</a>
             <a href="/grupos">Grupos</a>
         </nav>
-        <div id="app"></div>
+
+        <!-- Container principal onde o JavaScript irá renderizar -->
+        <div id="app">
+            <!-- O conteúdo será inserido dinamicamente pelo grupos.js -->
+            <div class="loader">Carregando usuarios...</div>
+        </div>
+
+        <script>
+            const CSRF_TOKEN = "<%= csrfToken %>";
+        </script>
         <script src="/js/auth/usuarios/usuarios.js"></script>
     </body>
 
