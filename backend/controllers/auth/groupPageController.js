@@ -16,9 +16,8 @@ module.exports = {
                 group,
                 pages
             });
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Erro ao carregar páginas do grupo');
+        } catch (error) {
+            res.status(500).send('Erro ao carregar formulário!');
         }
     },
 
@@ -30,9 +29,9 @@ module.exports = {
         try {
             const result = await model.setGroupPages(groupId, pageIds || []);
             res.json({ success: true, data: result });
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ success: false, error: err.message });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
         }
     }
+    
 };

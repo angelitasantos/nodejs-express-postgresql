@@ -12,61 +12,76 @@ module.exports = {
                 users
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).render('error', { message: 'Erro ao carregar página' });
+            res.status(500).render('error', { message: 'Erro ao carregar página!' });
         }
     },
 
     renderCreateForm: (req, res) => {
-        res.render('auth/admin/usuarios/usuarios_novo', {
-            csrfToken: req.csrfToken()
-        });
+        try {
+            res.render('auth/admin/usuarios/usuarios_novo', {
+                csrfToken: req.csrfToken()
+            });
+        } catch (error) {
+            res.status(500).send('Erro ao carregar formulário!');
+        }
     },
 
     renderEditForm: async (req, res) => {
-        const user = await userModel.getById(req.params.id);
-        res.render('auth/admin/usuarios/usuarios_editar', {
-            csrfToken: req.csrfToken(),
-            user
-        });
+        try {
+            const user = await userModel.getById(req.params.id);
+            if (!user) return res.status(404).send('Registro não encontrado!');
+
+            res.render('auth/admin/usuarios/usuarios_editar', {
+                csrfToken: req.csrfToken(),
+                user
+            });
+        } catch (error) {
+            res.status(500).send('Erro ao carregar formulário!');
+        }
     },
 
     // ========== ROTAS API ==========
     listAPI: async (req, res) => {
         try {
             const users = await userModel.getAll();
-            res.json({
-                success: true,
-                data: users
-            });
+            res.json({ success: true, data: users });
         } catch (error) {
-            console.error('API Error:', error);
-            res.status(500).json({
-                success: false,
-                error: 'Erro no servidor'
-            });
+            res.status(500).json({ success: false, error: error.message });
         }        
     },
 
     create: async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-        const novo = await userModel.create(req.body);
-        res.json({ success: true, data: novo });
+            const newUser = await userModel.create(req.body);
+            res.json({ success: true, data: newUser });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
     },
 
     update: async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+        try {
+            const id = req.params.id;
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-        const atualizado = await userModel.update(req.params.id, req.body);
-        res.json({ success: true, data: atualizado });
+            const updatedUser = await userModel.update(id, req.body);
+            res.json({ success: true, data: updatedUser });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
     },
 
     toggle: async (req, res) => {
-        const result = await userModel.toggleActive(req.params.id, req.body.is_active);
-        res.json({ success: true, data: result });
+        try {
+            const result = await userModel.toggleActive(req.params.id, req.body.is_active);
+            res.json({ success: true, data: result });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
     }
 
 };

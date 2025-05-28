@@ -12,8 +12,7 @@ module.exports = {
                 grupos: grupos
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).render('error', { message: 'Erro ao carregar página' });
+            res.status(500).render('error', { message: 'Erro ao carregar página!' });
         }
     },
 
@@ -24,24 +23,21 @@ module.exports = {
                 group: null
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Erro ao carregar formulário');
+            res.status(500).send('Erro ao carregar formulário!');
         }
     },
 
     renderEditForm: async (req, res) => {
         try {
-            const id = req.params.id;
-            const group = await groupModel.getById(id);
-            if (!group) return res.status(404).send('Grupo não encontrado');
+            const group = await groupModel.getById(req.params.id);
+            if (!group) return res.status(404).send('Registro não encontrado!');
 
             res.render('auth/admin/grupos/grupos_editar', {
                 csrfToken: req.csrfToken(),
                 group
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Erro ao carregar formulário de edição');
+            res.status(500).send('Erro ao carregar formulário!');
         }
     },
 
@@ -54,29 +50,19 @@ module.exports = {
                 data: grupos
             });
         } catch (error) {
-            console.error('API Error:', error);
-            res.status(500).json({
-                success: false,
-                error: 'Erro no servidor'
-            });
+            res.status(500).json({ success: false, error: error.message });
         }
     },
 
     create: async (req, res) => {
         try {
             const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             const newGroup = await groupModel.create(req.body);
             res.json({ success: true, data: newGroup });
-            
         } catch (error) {
-            res.status(500).json({ 
-                success: false,
-                error: error.message 
-            });
+            res.status(500).json({ success: false, error: error.message });
         }
     },
 
@@ -84,15 +70,13 @@ module.exports = {
         try {
             const id = req.params.id;
             const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             const updatedGroup = await groupModel.update(id, req.body);
             res.json({ success: true, data: updatedGroup });
         } catch (error) {
-            console.error(error);
             res.status(500).json({ success: false, error: error.message });
         }
     }
+    
 };

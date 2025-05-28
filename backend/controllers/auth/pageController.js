@@ -10,9 +10,8 @@ module.exports = {
                 csrfToken: req.csrfToken(),
                 pages
             });
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Erro ao carregar páginas');
+        } catch (error) {
+            res.status(500).send('Erro ao carregar página!');
         }
     },
 
@@ -23,8 +22,7 @@ module.exports = {
                 page: null
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Erro ao carregar formulário');
+            res.status(500).send('Erro ao carregar formulário!');
         }
     },
     
@@ -39,8 +37,7 @@ module.exports = {
                 page
             });
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Erro ao carregar formulário de edição');
+            res.status(500).send('Erro ao carregar formulário!');
         }
     },
 
@@ -49,8 +46,8 @@ module.exports = {
         try {
             const pages = await pageModel.getAll();
             res.json({ success: true, data: pages });
-        } catch (err) {
-            res.status(500).json({ success: false, error: 'Erro ao listar páginas' });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
         }
     },
 
@@ -58,8 +55,8 @@ module.exports = {
         try {
             const nova = await pageModel.create(req.body);
             res.json({ success: true, data: nova });
-        } catch (err) {
-            res.status(500).json({ success: false, error: err.message });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
         }
     },
 
@@ -67,8 +64,8 @@ module.exports = {
         try {
             const atualizada = await pageModel.update(req.params.id, req.body);
             res.json({ success: true, data: atualizada });
-        } catch (err) {
-            res.status(500).json({ success: false, error: err.message });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
         }
     },
 
@@ -76,8 +73,8 @@ module.exports = {
         try {
             const resultado = await pageModel.toggleActive(req.params.id, req.body.is_active);
             res.json({ success: true, data: resultado });
-        } catch (err) {
-            res.status(500).json({ success: false, error: err.message });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
         }
     }
 };

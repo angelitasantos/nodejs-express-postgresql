@@ -1,0 +1,10 @@
+Como Executar os Seeds
+- Adicione um script no package.json:
+  "scripts": {
+      "seed:users": "node database/seeds/userSeed.js",
+      "seed:full": "node database/seeds/fullSeed.js"
+  }
+
+Execute com:
+- npm run seed:users  # Apenas usuários
+- npm run seed:full   # Todos os dados
