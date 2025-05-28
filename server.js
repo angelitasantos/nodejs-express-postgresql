@@ -39,6 +39,7 @@ router.use((req, res, next) => {
 // Rotas site
 const homeRoutes = require('./backend/routes/homeRoutes');
 router.get('/', homeRoutes.home);
+router.get('/menu', homeRoutes.menu);
 router.get('/sobre', homeRoutes.sobre);
 router.get('/contato', homeRoutes.contato);
 router.post('/enviar-contato', homeRoutes.salvarContato);
@@ -52,14 +53,11 @@ router.get('/redefinir_senha', authRoutes.redefinirSenha);
 // Usuários
 const userRoutes = require('./backend/routes/auth/userRoutes');
 router.use('/usuarios', userRoutes);
-router.get('/usuarios/novo', userRoutes);
-router.get('/usuarios/:id/editar', userRoutes);
+router.get('/minha_conta', authRoutes.minhaConta);
 
 // Rotas de grupos
 const groupRoutes = require('./backend/routes/auth/groupRoutes');
 router.use('/grupos', groupRoutes);
-router.get('/grupos/novo', groupRoutes);
-router.get('/grupos/:id/editar', groupRoutes);
 
 const pageRoutes = require('./backend/routes/auth/pageRoutes');
 const permissionRoutes = require('./backend/routes/auth/permissionRoutes');
