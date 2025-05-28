@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${page.module}</td>
                 <td>${page.is_active ? 'Sim' : 'Não'}</td>
                 <td>
-                    <a href="/paginas/${page.id}/editar" class="btn-editar">Editar</a>
+                    <a href="/paginas/${page.id}/editar" class="btn btn-editar">Editar</a>
                 </td>
             `;
             tbody.appendChild(tr);

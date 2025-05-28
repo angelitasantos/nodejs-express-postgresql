@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <td>${grupo.description}</td>
                     <td>${grupo.level}</td>
                     <td>
-                        <a href="/grupos/${grupo.id}/editar" class="btn-editar">Editar</a>
-                        <a href="/grupos/${grupo.id}/paginas" class="btn-editar">Páginas</a>
-                        <a href="/grupos/${grupo.id}/permissoes" class="btn-editar">Permissões</a>
+                        <a href="/grupos/${grupo.id}/editar" class="btn btn-editar">Editar</a>
+                        <a href="/grupos/${grupo.id}/paginas" class="btn btn-editar">Páginas</a>
+                        <a href="/grupos/${grupo.id}/permissoes" class="btn btn-editar">Permissões</a>
                     </td>
                 `;
                 tbody.appendChild(tr);
