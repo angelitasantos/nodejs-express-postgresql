@@ -37,11 +37,11 @@ router.use((req, res, next) => {
 
 // ===== ROTAS PRINCIPAIS =====
 // Rotas site
-const pageRoutes = require('./backend/routes/pageRoutes');
-router.get('/', pageRoutes.home);
-router.get('/sobre', pageRoutes.sobre);
-router.get('/contato', pageRoutes.contato);
-router.post('/enviar-contato', pageRoutes.salvarContato);
+const homeRoutes = require('./backend/routes/homeRoutes');
+router.get('/', homeRoutes.home);
+router.get('/sobre', homeRoutes.sobre);
+router.get('/contato', homeRoutes.contato);
+router.post('/enviar-contato', homeRoutes.salvarContato);
 
 // Rotas de autenticação
 const authRoutes = require('./backend/routes/authRoutes');
@@ -58,11 +58,18 @@ router.get('/minha_conta', authRoutes.minhaConta);
 // Rotas de grupos
 const groupRoutes = require('./backend/routes/groupRoutes');
 router.use('/grupos', groupRoutes);
-router.get('/grupos/novo', authRoutes.gruposNovo);
-router.get('/grupos/:id/editar', authRoutes.gruposEditar);
+router.get('/grupos/novo', groupRoutes);
+router.get('/grupos/:id/editar', groupRoutes);
 
-// Permissões dos grupos
-router.get('/grupos/:id/permissoes', authRoutes.gruposPermissoes);
+const pageRoutes = require('./backend/routes/pageRoutes');
+const permissionRoutes = require('./backend/routes/permissionRoutes');
+const groupPageRoutes = require('./backend/routes/groupPageRoutes');
+const groupPermissionRoutes = require('./backend/routes/groupPermissionRoutes');
+
+router.use('/paginas', pageRoutes);
+router.use('/permissoes', permissionRoutes);
+router.use('/grupos', groupPageRoutes);
+router.use('/grupos', groupPermissionRoutes);
 
 // ===== ROTAS API =====
 router.get('/api', (req, res) => {
@@ -99,6 +106,11 @@ router.use((req, res, next) => {
 });
 
 /* 
+router.use((req, res, next) => {
+    console.log('==> Nova requisição:', req.method, req.path);
+    next();
+});
+
 // Liste todas as rotas registradas
 console.log('Rotas registradas:');
 router.stack.forEach(layer => {

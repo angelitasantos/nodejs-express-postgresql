@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Permissões do Grupo</title>
+        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+
+    <body>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/grupos">Grupos</a>
+        </nav>
+
+        <h1>Permissões do Grupo: <%= group.name %></h1>
+        <div id="app"></div>
+
+        <script>
+            window.csrfToken = "<%= csrfToken %>";
+            window.groupId = <%= group.id %>;
+            window.permissionsData = <%- JSON.stringify(permissions || []) %>;
+        </script>
+        <script src="/js/auth/grupos/grupos_permissoes.js"></script>
+    </body>
+
+</html>
