@@ -1,6 +1,7 @@
 const pool = require('../../../database/data/db');
 
 module.exports = {
+    
     async getAll() {
         const result = await pool.query('SELECT * FROM groups ORDER BY level');
         return result.rows;
@@ -40,4 +41,5 @@ module.exports = {
         const result = await pool.query('SELECT * FROM groups WHERE is_active = TRUE ORDER BY level');
         return result.rows;
     }
+
 };

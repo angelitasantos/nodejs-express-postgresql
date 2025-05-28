@@ -1,6 +1,7 @@
 const pool = require('../../../database/data/db');
 
 module.exports = {
+    
     async getAll() {
         const result = await pool.query('SELECT * FROM pages ORDER BY module, name');
         return result.rows;
@@ -34,4 +35,5 @@ module.exports = {
         );
         return result.rows[0];
     }
+
 };

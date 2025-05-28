@@ -29,4 +29,5 @@ module.exports = {
         `);
         return result.rows;
     }
+    
 };
