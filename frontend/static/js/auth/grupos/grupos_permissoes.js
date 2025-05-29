@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.id = 'group-permissions-form';
 
     const table = document.createElement('table');
-    table.className = 'tabela-grupos';
+    table.className = 'tabela-registros';
     
     table.innerHTML = `
         <thead>

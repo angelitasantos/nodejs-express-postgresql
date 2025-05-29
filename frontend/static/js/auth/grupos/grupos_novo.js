@@ -11,21 +11,26 @@ document.addEventListener('DOMContentLoaded', () => {
     form.id = 'form-grupo';
   
     const campos = [
-        { type: 'text', name: 'name', placeholder: 'Nome do Grupo', required: true },
-        { type: 'text', name: 'description', placeholder: 'Descrição', required: true },
-        { type: 'number', name: 'level', placeholder: 'Nivel', required: true }
+        { type: 'text', name: 'name', for: 'Nome', required: true },
+        { type: 'text', name: 'description', for: 'Descrição', required: false },
+        { type: 'number', name: 'level', for: 'Nivel', required: true }
     ];
 
     campos.forEach(campo => {
         const container = document.createElement('div');
         container.className = 'form-group';
 
+        const labelForm = document.createElement('label');
+        labelForm.htmlFor = campo.name;
+        labelForm.textContent = campo.for;
+
         const input = document.createElement('input');
         input.type = campo.type;
         input.name = campo.name;
-        input.placeholder = campo.placeholder;
+        input.id = campo.for;
         if (campo.required) input.required = true;
 
+        container.appendChild(labelForm);
         container.appendChild(input);
         form.appendChild(container);
     });
