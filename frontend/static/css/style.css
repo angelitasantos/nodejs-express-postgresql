@@ -64,14 +64,14 @@ input[type="checkbox"], label {
 }
 
 /* Estilos para a tabela */
-.tabela-grupos, .tabela-paginas, .tabela-permissoes {
+.tabela-registros, .tabela-paginas, .tabela-permissoes {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
 }
 
-.tabela-grupos th, 
-.tabela-grupos td,
+.tabela-registros th, 
+.tabela-registros td,
 .tabela-paginas th, 
 .tabela-paginas td,
 .tabela-permissoes th, 
@@ -81,7 +81,7 @@ input[type="checkbox"], label {
     text-align: left;
 }
 
-.tabela-grupos th,
+.tabela-registros th,
 .tabela-paginas th,
 .tabela-permissoes th {
     background-color: #140101;
@@ -128,4 +128,97 @@ input[type="checkbox"], label {
     padding: 0.25rem 0.5rem;
     border-radius: 3px;
     cursor: pointer;
+}
+/* Estilo para o toggle switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+    transform: translateX(36px);
+}
+
+.status-text {
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+/* Estilo para os botões de ação */
+.actions {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.btn-delete {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background-color: #d32f2f;
+}
+
+/* Estilo para as notificações (toast) */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    color: white;
+    z-index: 1000;
+    animation: fadein 0.5s;
+}
+
+.toast.success {
+    background-color: #4CAF50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
