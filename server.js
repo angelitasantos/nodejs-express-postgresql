@@ -58,6 +58,21 @@ router.use((req, res, next) => {
     next();
 });
 
+// ===== MIDDLEWARE DE AUTENTICAÇÃO =====
+router.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.user ? true : false;
+    
+    if (req.session.user) {
+        res.locals.user = {
+            id: req.session.user.id,
+            name: req.session.user.name,
+            email: req.session.user.email
+        };
+    }
+    
+    next();
+});
+
 // ===== ARQUIVOS ESTÁTICOS =====
 router.use(express.static(path.join(__dirname, 'frontend'), {
     maxAge: process.env.NODE_ENV === 'production' ? 86400000 : 0

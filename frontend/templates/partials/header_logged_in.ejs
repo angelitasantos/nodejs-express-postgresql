@@ -1,0 +1,14 @@
+<header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/usuarios">Usuários</a>
+        <a href="/grupos">Grupos</a>
+        <a href="/paginas">Páginas</a>
+        <a href="/permissoes">Permissões</a>
+        <a href="/minha_conta">Minha Conta</a>
+        <form action="/logout" method="POST" style="display: inline;">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit">Sair</button>
+        </form>
+    </nav>
+</header>
