@@ -5,38 +5,66 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const router = express.Router();
 const pool = require('./database/data/db');
+const helmet = require('helmet');
 
-// ===== CONFIGURAÇÕES ESSENCIAIS =====
-router.use(cookieParser());
-// Para forms HTML
+// ===== CONFIGURAÇÕES BÁSICAS =====
 router.use(express.urlencoded({ extended: true }));
-// Para APIs JSON
 router.use(express.json());
+router.use(cookieParser());
 
-// Configuração de sessão
+// ===== CONFIGURAÇÕES DE SEGURANÇA =====
+router.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "script-src": ["'self'", "'unsafe-inline'"], // Permite scripts inline para CSRF
+            "form-action": ["'self'"] // Permite envio de formulários para as próprias rotas
+        }
+    },
+    crossOriginEmbedderPolicy: false // Ajuste para APIs
+}));
+
+// ===== CONFIGURAÇÃO DE SESSÃO =====
 router.use(session({
-    secret: process.env.SESSION_SECRET || 'segredo_dev',
+    secret: process.env.SESSION_SECRET || 'segredo_dev_fallback',
     resave: false,
     saveUninitialized: true,
-    cookie: { 
-        // secure: process.env.NODE_ENV === 'production',
-        secure: false, // Mude para true em produção com HTTPS
-        httpOnly: true
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        sameSite: 'lax', // Balanceamento entre segurança e usabilidade
+        maxAge: 24 * 60 * 60 * 1000 // 1 dia
     }
 }));
 
-// Configuração do CSRF
-const csrfProtection = csrf({ cookie: true });
-router.use(csrfProtection);
-
-// CSRF Protection (exceto para APIs)
-router.use((req, res, next) => {
-    if (req.path.startsWith('/api')) return next();
-    csrf({ cookie: true })(req, res, next);
+// ===== CSRF PROTECTION =====
+const csrfProtection = csrf({
+    cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict'
+    }
 });
 
-// ===== ROTAS PRINCIPAIS =====
-// Rotas site
+// Aplica CSRF apenas para rotas não-API
+router.use((req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    csrfProtection(req, res, next);
+});
+
+// Middleware para injetar token CSRF nas views
+router.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken ? req.csrfToken() : '';
+    next();
+});
+
+// ===== ARQUIVOS ESTÁTICOS =====
+router.use(express.static(path.join(__dirname, 'frontend'), {
+    maxAge: process.env.NODE_ENV === 'production' ? 86400000 : 0
+}));
+
+// ===== ROTAS =====
+// Rotas do site público
 const homeRoutes = require('./backend/routes/homeRoutes');
 router.get('/', homeRoutes.home);
 router.get('/menu', homeRoutes.menu);
@@ -49,75 +77,64 @@ const authRoutes = require('./backend/routes/authRoutes');
 router.get('/login', authRoutes.login);
 router.get('/esqueceu_senha', authRoutes.esqueceuSenha);
 router.get('/redefinir_senha', authRoutes.redefinirSenha);
-
-// Usuários
-const userRoutes = require('./backend/routes/auth/userRoutes');
-router.use('/usuarios', userRoutes);
 router.get('/minha_conta', authRoutes.minhaConta);
 
-// Rotas de grupos
-const groupRoutes = require('./backend/routes/auth/groupRoutes');
-router.use('/grupos', groupRoutes);
+// Rotas de usuários e grupos
+router.use('/usuarios', require('./backend/routes/auth/userRoutes'));
+router.use('/grupos', require('./backend/routes/auth/groupRoutes'));
+router.use('/paginas', require('./backend/routes/auth/pageRoutes'));
+router.use('/permissoes', require('./backend/routes/auth/permissionRoutes'));
+router.use('/grupos', require('./backend/routes/auth/groupPageRoutes'));
+router.use('/grupos', require('./backend/routes/auth/groupPermissionRoutes'));
 
-const pageRoutes = require('./backend/routes/auth/pageRoutes');
-const permissionRoutes = require('./backend/routes/auth/permissionRoutes');
-const groupPageRoutes = require('./backend/routes/auth/groupPageRoutes');
-const groupPermissionRoutes = require('./backend/routes/auth/groupPermissionRoutes');
-
-router.use('/paginas', pageRoutes);
-router.use('/permissoes', permissionRoutes);
-router.use('/grupos', groupPageRoutes);
-router.use('/grupos', groupPermissionRoutes);
-
-// ===== ROTAS API =====
+// Rota API
 router.get('/api', (req, res) => {
-    res.json({ status: 'OK', message: 'API funcionando!' });
+    res.json({ 
+        status: 'OK', 
+        message: 'API funcionando',
+        timestamp: new Date().toISOString()
+    });
 });
 
-// ===== ROTAS DE TESTE =====
-// GET /db/bancodados - Teste de conexão básica
-// GET /db/tabelacontatos - Teste completo da tabela contatos
+// Rotas de teste (apenas desenvolvimento)
 if (process.env.NODE_ENV !== 'production') {
-    const dbTests = require('./database/tests/dbTests');
-    router.use('/db', dbTests);
+    router.use('/db', require('./database/tests/dbTests'));
+    
+    // Middleware de debug simplificado
+    router.use((req, res, next) => {
+        console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+        next();
+    });
 }
 
-// ===== HANDLERS FINAIS =====
+// ===== HANDLERS DE ERRO =====
+// Handler para erros CSRF
+router.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+        return req.path.startsWith('/api')
+            ? res.status(403).json({ error: 'Token CSRF inválido!' })
+            : res.status(403).send('Sessão expirada. Por favor, recarregue a página!');
+    }
+    next(err);
+});
+
 // 404 para rotas não encontradas
 router.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'frontend', 'templates', 'erro_404.html'));
 });
 
-// Error handler
+// Error handler geral
 router.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(404).sendFile(path.join(__dirname, 'frontend', 'templates', 'erro_500.html'));
-    // res.status(500).json({ error: 'Erro interno no servidor' });
-});
-
-router.use((req, res, next) => {
-    console.log('=== DEBUG ===');
-    console.log('CSRF Token:', req.csrfToken());
-    console.log('Cookies:', req.cookies);
-    console.log('Session:', req.session);
-    next();
-});
-
-/* 
-router.use((req, res, next) => {
-    console.log('==> Nova requisição:', req.method, req.path);
-    next();
-});
-
-// Liste todas as rotas registradas
-console.log('Rotas registradas:');
-router.stack.forEach(layer => {
-    if (layer.route) {
-        console.log(
-            `${Object.keys(layer.route.methods).join(', ')} -> ${layer.route.path}`
-        );
+    console.error(`[${new Date().toISOString()}] Erro:`, err.message);
+    
+    if (req.path.startsWith('/api')) {
+        return res.status(500).json({ 
+            error: 'Erro interno!',
+            message: process.env.NODE_ENV !== 'production' ? err.message : undefined
+        });
     }
+    
+    res.status(500).sendFile(path.join(__dirname, 'frontend', 'templates', 'erro_500.html'));
 });
-*/
 
 module.exports = router;
