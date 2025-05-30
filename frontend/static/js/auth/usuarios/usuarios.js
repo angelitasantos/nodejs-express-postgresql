@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const app = document.getElementById('app');
     
     // Mostrar loader enquanto carrega os dados
-    app.innerHTML = '<div class="loader">Carregando usuarios...</div>';
+    app.innerHTML = '<div class="loader">Carregando registros...</div>';
 
     try {
-        // 1. Buscar os usuarios da API
+        // 1. Buscar os registros da API
         const response = await fetch('/usuarios/api/usuarios');
         
         if (!response.ok) {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             throw new Error('Dados inválidos retornados pela API');
         }
         
-        const usuarios = data.data.rows || data.data; // Adaptação para diferentes formatos de resposta
+        const registros = data.data.rows || data.data;
         
         // 3. Limpar o container e construir a interface
         app.innerHTML = '';
@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         addBtn.className = 'btn';
         app.appendChild(addBtn);
 
-        // 4. Criar tabela apenas se houver usuarios
-        if (usuarios.length > 0) {
+        // 4. Criar tabela apenas se houver registros
+        if (registros.length > 0) {
             const table = document.createElement('table');
-            table.className = 'tabela-grupos';
+            table.className = 'tabela-registros';
 
             const thead = document.createElement('thead');
             thead.innerHTML = `
@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const tbody = document.createElement('tbody');
             
-            usuarios.forEach(usuario => {
+            registros.forEach(registro => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${usuario.name}</td>
-                    <td>${usuario.email}</td>
-                    <td>${usuario.ativo ? 'Ativo' : 'Inativo'}</td>
+                    <td>${registro.name}</td>
+                    <td>${registro.email}</td>
+                    <td>${registro.ativo ? 'Ativo' : 'Inativo'}</td>
                     <td>
-                        <a href="/usuarios/${usuario.id}/editar" class="btn btn-editar">Editar</a>
+                        <a href="/usuarios/${registro.id}/editar" class="btn btn-editar">Editar</a>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -68,20 +68,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             table.appendChild(tbody);
             app.appendChild(table);
         } else {
-            // Mostrar mensagem se não houver usuarios
+            // Mostrar mensagem se não houver registros
             const noData = document.createElement('p');
-            noData.textContent = 'Nenhum usuario encontrado.';
+            noData.textContent = 'Nenhum registro encontrado!';
             app.appendChild(noData);
         }
         
     } catch (error) {
         // 5. Tratamento de erros
-        console.error('Erro ao carregar usuarios:', error);
+        console.error('Erro ao carregar registro:', error);
         app.innerHTML = `
             <div class="error">
-                <p>Erro ao carregar lista de usuarios</p>
+                <p>Erro ao carregar lista de registros</p>
                 <p>${error.message}</p>
-                <button onclick="window.location.reload()">Tentar novamente</button>
+                <button onclick="window.location.reload()">Tentar novamente!</button>
             </div>
         `;
     }

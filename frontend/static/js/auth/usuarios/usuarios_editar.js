@@ -12,21 +12,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const user = window.userData || {};
 
     const campos = [
-        { type: 'text', name: 'name', placeholder: 'Nome', required: true, value: user.name || '' },
-        { type: 'email', name: 'email', placeholder: 'Email', required: true, value: user.email || '' }
+        { type: 'text', name: 'name', for: 'Nome', required: true, value: user.name || '' },
+        { type: 'email', name: 'email', for: 'Email', required: true, value: user.email || '' }
     ];
 
     campos.forEach(campo => {
         const container = document.createElement('div');
         container.className = 'form-group';
 
+        const labelForm = document.createElement('label');
+        labelForm.htmlFor = campo.name;
+        labelForm.textContent = campo.for;
+
         const input = document.createElement('input');
         input.type = campo.type;
         input.name = campo.name;
-        input.placeholder = campo.placeholder;
+        input.id = campo.for;
         input.required = campo.required;
         input.value = campo.value;
 
+        container.appendChild(labelForm);
         container.appendChild(input);
         form.appendChild(container);
     });
@@ -34,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.createElement('button');
     submitBtn.type = 'submit';
     submitBtn.textContent = 'Salvar Alterações';
+    submitBtn.className = 'btn';
     form.appendChild(submitBtn);
 
     app.appendChild(form);

@@ -2,23 +2,23 @@
 <html lang="pt-BR">
 
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Criar Usuário</title>
-        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
-        <link rel="stylesheet" href="/css/style.css" />
+        <% const base = '../../../partials'; %>
+        <%- include(`${base}/head`, { title: 'Criar Usuário' }) %>
     </head>
 
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/usuarios">Usuários</a>
-        </nav>
-        <div id="app"></div>
-        <script>
-            window.csrfToken = "<%= csrfToken %>";
-        </script>
-        <script src="/js/auth/usuarios/usuarios_novo.js"></script>
+        <%- include(`${base}/header`) %>
+
+        <main class="container">
+            <div id="app"></div>
+
+            <script>
+                window.csrfToken = "<%= csrfToken %>";
+            </script>
+            <script src="/js/auth/usuarios/usuarios_novo.js"></script>
+        </main>
+
+        <%- include(`${base}/footer`) %>
     </body>
 
 </html>

@@ -2,30 +2,24 @@
 <html lang="pt-BR">
 
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Lista de Usuários</title>
-        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
-        <link rel="stylesheet" href="/css/style.css" />
+        <% const base = '../../../partials'; %>
+        <%- include(`${base}/head`, { title: 'Lista de Usuários' }) %>
+        <meta name="csrf-token" content="<%= csrfToken %>">
     </head>
 
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/usuarios">Usuários</a>
-            <a href="/grupos">Grupos</a>
-        </nav>
+        <%- include(`${base}/header`) %>
 
-        <!-- Container principal onde o JavaScript irá renderizar -->
-        <div id="app">
-            <!-- O conteúdo será inserido dinamicamente pelo grupos.js -->
-            <div class="loader">Carregando usuarios...</div>
-        </div>
+        <main class="container">
+            <div id="app"></div>
 
-        <script>
-            const CSRF_TOKEN = "<%= csrfToken %>";
-        </script>
-        <script src="/js/auth/usuarios/usuarios.js"></script>
+            <script>
+                const CSRF_TOKEN = "<%= csrfToken %>";
+            </script>
+            <script src="/js/auth/usuarios/usuarios.js"></script>
+        </main>
+
+        <%- include(`${base}/footer`) %>
     </body>
 
 </html>
