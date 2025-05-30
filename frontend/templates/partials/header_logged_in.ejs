@@ -1,14 +1,32 @@
 <header>
     <nav>
-        <a href="/">Home</a>
-        <a href="/usuarios">Usuários</a>
-        <a href="/grupos">Grupos</a>
-        <a href="/paginas">Páginas</a>
-        <a href="/permissoes">Permissões</a>
-        <a href="/minha_conta">Minha Conta</a>
+        <a href="/">Home</a>     
+        <a href="/login">Login</a>
+        
+        <div class="dropdown">
+            <button class="dropbtn">Informações</button>
+            <div class="dropdown-content">
+                <a href="/sobre">Sobre</a>
+                <a href="/contato">Contato</a>
+                <a href="/esqueceu_senha">Esqueceu Senha</a>
+                <a href="/redefinir_senha">Redefinir Senha</a>
+            </div>
+        </div>
+        
+        <div class="dropdown">
+            <button class="dropbtn">Administração</button>
+            <div class="dropdown-content">
+                <a href="/usuarios">Usuários</a>
+                <a href="/grupos">Grupos</a>
+                <a href="/paginas">Páginas</a>
+                <a href="/permissoes">Permissões</a>
+                <a href="/minha_conta">Minha Conta</a>
+            </div>
+        </div>
+        
         <form action="/logout" method="POST" style="display: inline;">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button type="submit">Sair</button>
+            <button type="submit" class="btn btn-logout">Sair</button>
         </form>
     </nav>
 </header>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <% const base = './partials'; %>
+        <%- include(`${base}/head`, { title: 'Contato' }) %>
+        <meta name="csrf-token" content="<%= csrfToken %>">
+    </head>
+
+    <body>
+        <%- include(`${base}/header`) %>
+
+        <main class="container">
+            <div id="app"></div>
+            <script src="/js/contato.js"></script>
+        </main>
+
+        <%- include(`${base}/footer`) %>
+    </body>
+
+</html>

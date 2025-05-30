@@ -126,9 +126,15 @@ if (process.env.NODE_ENV !== 'production') {
 // Handler para erros CSRF
 router.use((err, req, res, next) => {
     if (err.code === 'EBADCSRFTOKEN') {
-        return req.path.startsWith('/api')
-            ? res.status(403).json({ error: 'Token CSRF inválido!' })
-            : res.status(403).send('Sessão expirada. Por favor, recarregue a página!');
+        if (req.path.startsWith('/api')) {
+            return res.status(403).json({ 
+                error: 'Token CSRF inválido!',
+                redirect: '/'  // Adiciona informação de redirecionamento para APIs
+            });
+        } else {
+            req.session.errorMessage = 'Sessão expirada. Por favor, tente novamente.';
+            return res.redirect('/');
+        }
     }
     next(err);
 });

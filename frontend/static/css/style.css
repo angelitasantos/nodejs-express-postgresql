@@ -26,7 +26,8 @@ header {
 header nav {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.5rem;
     flex-wrap: wrap;
 }
 
@@ -270,4 +271,68 @@ input:checked + .slider:before {
 @keyframes fadein {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* Estilos para os dropdowns */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: white;
+    padding: 0.1rem 1rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.dropbtn:hover {
+    background-color: #34495e;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2c3e50;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #34495e;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Estilo para o botão de logout */
+.btn-logout {
+    background: none;
+    color: white;
+    border: none;
+    padding: 0.1rem 1rem;
+    font: inherit;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #34495e;
 }

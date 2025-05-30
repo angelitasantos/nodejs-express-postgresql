@@ -12,17 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const div = document.createElement('div');
     div.className = 'form-group';
+
     const input = document.createElement('input');
     input.type = 'email';
     input.name = 'email';
     input.placeholder = 'Digite seu e-mail';
     input.required = true;
+    
     div.appendChild(input);
     form.appendChild(div);
 
     const btn = document.createElement('button');
     btn.type = 'submit';
     btn.textContent = 'Enviar link de redefinição';
+    btn.className = 'btn';
     form.appendChild(btn);
 
     app.appendChild(form);

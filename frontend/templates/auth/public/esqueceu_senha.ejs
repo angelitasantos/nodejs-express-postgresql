@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <% const base = '../../partials'; %>
+        <%- include(`${base}/head`, { title: 'Esqueci Senha' }) %>
+        <meta name="csrf-token" content="<%= csrfToken %>">
+    </head>
+
+    <body>
+        <%- include(`${base}/header`) %>
+
+        <main class="container">
+            <div id="app"></div>
+
+            <script>
+                window.csrfToken = "<%= csrfToken %>";
+            </script>
+            <script src="/js/auth/public/esqueceu_senha.js"></script>
+        </main>
+
+        <%- include(`${base}/footer`) %>
+    </body>
+
+</html>

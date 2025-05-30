@@ -11,26 +11,36 @@ document.addEventListener('DOMContentLoaded', () => {
     form.id = 'form-login';
 
     const campos = [
-        { type: 'email', name: 'email', placeholder: 'E-mail', required: true },
-        { type: 'password', name: 'password', placeholder: 'Senha', required: true }
+        { type: 'email', name: 'email', for: 'E-mail', required: true },
+        { type: 'password', name: 'password', for: 'Senha', required: true }
     ];
 
-    campos.forEach(c => {
-        const div = document.createElement('div');
-        div.className = 'form-group';
+    campos.forEach(campo => {
+        const container = document.createElement('div');
+        container.className = 'form-group';
+
+        const labelForm = document.createElement('label');
+        labelForm.htmlFor = campo.name;
+        labelForm.textContent = campo.for;
+
         const input = document.createElement('input');
-        input.type = c.type;
-        input.name = c.name;
-        input.placeholder = c.placeholder;
-        if (c.required) input.required = true;
-        div.appendChild(input);
-        form.appendChild(div);
+        input.type = campo.type;
+        input.name = campo.name;
+        input.id = campo.for;
+        if (campo.required) input.required = true;
+
+        container.appendChild(labelForm);
+        container.appendChild(input);
+        form.appendChild(container);
     });
 
     const btn = document.createElement('button');
+    const linha = document.createElement('div');
     btn.type = 'submit';
     btn.textContent = 'Entrar';
+    btn.className = 'btn';
     form.appendChild(btn);
+    form.appendChild(linha);
 
     const link = document.createElement('a');
     link.href = '/esqueceu_senha';

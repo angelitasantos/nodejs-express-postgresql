@@ -51,10 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.createElement('button');
     submitBtn.setAttribute('type', 'submit');
     submitBtn.textContent = 'Enviar';
+    submitBtn.className = 'btn';
     form.appendChild(submitBtn);
 
     // Adiciona o formulário ao app
     app.appendChild(form);
+
+    const csrfInput = document.createElement('input');
+    csrfInput.setAttribute('type', 'hidden');
+    csrfInput.setAttribute('name', '_csrf');
+    csrfInput.setAttribute('value', document.querySelector('meta[name="csrf-token"]').content);
+    form.appendChild(csrfInput);
 
     // Adiciona feedback (se houver parâmetros na URL)
     const urlParams = new URLSearchParams(window.location.search);
@@ -72,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         form.appendChild(feedback);
     }
 
-    // Adicione após criar os campos
     document.querySelectorAll('input, textarea').forEach(element => {
         element.addEventListener('input', (e) => {
             if (e.target.value.trim() !== '') {
