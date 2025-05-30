@@ -141,7 +141,7 @@ router.use((err, req, res, next) => {
 
 // 404 para rotas não encontradas
 router.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'frontend', 'templates', 'erro_404.html'));
+    res.status(404).render('erro_404');
 });
 
 // Error handler geral
@@ -155,7 +155,9 @@ router.use((err, req, res, next) => {
         });
     }
     
-    res.status(500).sendFile(path.join(__dirname, 'frontend', 'templates', 'erro_500.html'));
+    res.status(500).render('erro_500', { 
+        error: process.env.NODE_ENV !== 'production' ? err.message : null
+    });
 });
 
 module.exports = router;

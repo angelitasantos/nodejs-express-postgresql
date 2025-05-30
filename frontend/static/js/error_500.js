@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const paragraph = document.createElement('p');
     paragraph.textContent = 'Erro Interno do Sistema!';
 
+    const link = document.createElement('a');
+    link.href = '/';
+    link.textContent = 'Voltar à página inicial!';
+
     app.appendChild(title);
     app.appendChild(paragraph);
+    app.appendChild(link);
 });

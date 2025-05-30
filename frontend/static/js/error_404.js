@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const paragraph = document.createElement('p');
     paragraph.textContent = 'Página Não Encontrada ou Você não tem acesso a esta página.';
 
+    const link = document.createElement('a');
+    link.href = '/';
+    link.textContent = 'Voltar à página inicial!';
+    
     app.appendChild(title);
     app.appendChild(paragraph);
+    app.appendChild(link);
 });
