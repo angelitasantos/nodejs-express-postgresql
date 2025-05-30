@@ -12,22 +12,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const page = window.pageData || {};
 
     const campos = [
-        { type: 'text', name: 'route', placeholder: 'Rota', required: true, value: page.route || '' },
-        { type: 'text', name: 'name', placeholder: 'Nome', required: true, value: page.name || '' },
-        { type: 'text', name: 'module', placeholder: 'Modulo', required: true, value: page.module || 1 }
+        { type: 'text', name: 'route', for: 'Rota', required: true, value: page.route || '' },
+        { type: 'text', name: 'name', for: 'Nome', required: true, value: page.name || '' },
+        { type: 'text', name: 'module', for: 'Modulo', required: true, value: page.module || 1 }
     ];
 
     campos.forEach(campo => {
         const container = document.createElement('div');
         container.className = 'form-group';
 
+        const labelForm = document.createElement('label');
+        labelForm.htmlFor = campo.name;
+        labelForm.textContent = campo.for;
+
         const input = document.createElement('input');
         input.type = campo.type;
         input.name = campo.name;
-        input.placeholder = campo.placeholder;
+        input.id = campo.for;
         input.required = campo.required;
         input.value = campo.value;
 
+        container.appendChild(labelForm);
         container.appendChild(input);
         form.appendChild(container);
     });
@@ -35,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.createElement('button');
     submitBtn.type = 'submit';
     submitBtn.textContent = 'Salvar Alterações';
+    submitBtn.className = 'btn';
     form.appendChild(submitBtn);
 
     app.appendChild(form);

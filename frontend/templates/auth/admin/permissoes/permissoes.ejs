@@ -2,29 +2,26 @@
 <html lang="pt-BR">
 
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Permissões</title>
-        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
-        <link rel="stylesheet" href="/css/style.css" />
+        <% const base = '../../../partials'; %>
+        <%- include(`${base}/head`, { title: 'Permissões' }) %>
     </head>
 
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/grupos">Grupos</a>
-            <a href="/permissoes">Permissões</a>
-            <a href="/paginas">Páginas</a>
-        </nav>
+        <%- include(`${base}/header`) %>
 
-        <h1>Permissões do Sistema</h1>
-        <div id="app"></div>
+        <main class="container">
+            <h1>Permissões do Sistema</h1>
+            
+            <div id="app"></div>
 
-        <script>
-            window.csrfToken = "<%= csrfToken %>";
-            window.permissionsData = <%- JSON.stringify(permissoes || []) %>;
-        </script>
-        <script src="/js/auth/permissoes/permissoes.js"></script>
+            <script>
+                window.csrfToken = "<%= csrfToken %>";
+                window.permissionsData = <%- JSON.stringify(permissoes || []) %>;
+            </script>
+            <script src="/js/auth/permissoes/permissoes.js"></script>
+        </main>
+
+        <%- include(`${base}/footer`) %>
     </body>
 
 </html>

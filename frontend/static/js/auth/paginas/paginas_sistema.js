@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (pages.length > 0) {
         const table = document.createElement('table');
-        table.className = 'tabela-paginas';
+        table.className = 'tabela-registros';
 
         const thead = document.createElement('thead');
         thead.innerHTML = `

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Nova Permissão</h2>
         <input type="text" name="code" placeholder="Código (ex: users:create)" required>
         <input type="text" name="description" placeholder="Descrição" required>
-        <button type="submit">Salvar</button>
+        <button type="submit" class="btn">Salvar</button>
     `;
     app.appendChild(form);
 
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const table = document.createElement('table');
-    table.className = 'tabela-permissoes';
+    table.className = 'tabela-registros';
     
     table.innerHTML = `
         <thead>

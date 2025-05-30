@@ -107,26 +107,20 @@ input[type="checkbox"], label {
 }
 
 /* Estilos para a tabela */
-.tabela-registros, .tabela-paginas, .tabela-permissoes {
+.tabela-registros {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
 }
 
 .tabela-registros th, 
-.tabela-registros td,
-.tabela-paginas th, 
-.tabela-paginas td,
-.tabela-permissoes th, 
-.tabela-permissoes td {
+.tabela-registros td {
     padding: 0.4rem;
     border: 1px solid #ddd;
     text-align: left;
 }
 
-.tabela-registros th,
-.tabela-paginas th,
-.tabela-permissoes th {
+.tabela-registros th {
     background-color: #140101;
     color: #f5f5f5;
     padding-top:0.5rem;
