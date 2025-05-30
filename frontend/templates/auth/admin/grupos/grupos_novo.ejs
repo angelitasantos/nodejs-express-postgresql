@@ -2,27 +2,23 @@
 <html lang="pt-BR">
 
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Criar Grupo</title>
-        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
-        <link rel="stylesheet" href="/css/style.css" />
+        <% const base = '../../../partials'; %>
+        <%- include(`${base}/head`, { title: 'Criar Grupo' }) %>
     </head>
 
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/usuarios">Usuários</a>
-            <a href="/grupos">Grupos</a>
-            <a href="/paginas">Páginas</a>
-            <a href="/permissoes">Permissões</a>
-        </nav>
-        <div id="app"></div>
+        <%- include(`${base}/header`) %>
 
-        <script src="/js/auth/grupos/grupos_novo.js"></script>
-        <script>
-            window.csrfToken = "<%= csrfToken %>";
-        </script>
+        <main class="container">
+            <div id="app"></div>
+
+            <script src="/js/auth/grupos/grupos_novo.js"></script>
+            <script>
+                window.csrfToken = "<%= csrfToken %>";
+            </script>
+        </main>
+
+        <%- include(`${base}/footer`) %>
     </body>
 
 </html>

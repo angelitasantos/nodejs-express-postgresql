@@ -2,32 +2,26 @@
 <html lang="pt-BR">
 
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Páginas por Grupo</title>
-        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
-        <link rel="stylesheet" href="/css/style.css" />
+        <% const base = '../../../partials'; %>
+        <%- include(`${base}/head`, { title: 'Páginas por Grupo' }) %>
     </head>
 
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/usuarios">Usuários</a>
-            <a href="/grupos">Grupos</a>
-            <a href="/permissoes">Permissões</a>
-            <a href="/paginas">Páginas</a>
-        </nav>
+        <%- include(`${base}/header`) %>
 
-        <h1>Páginas do Grupo: <%= group.name %>
-        </h1>
-        <div id="app"></div>
+        <main class="container">
+            <h1>Páginas do Grupo: <%= group.name %></h1>
+            <div id="app"></div>
 
-        <script>
-            window.csrfToken = "<%= csrfToken %>";
-            window.groupId = <%= group.id %>;
-            window.pagesData = <%- JSON.stringify(pages || []) %>;
-        </script>
-        <script src="/js/auth/grupos/grupos_paginas.js"></script>
+            <script>
+                window.csrfToken = "<%= csrfToken %>";
+                window.groupId = <%= group.id %>;
+                window.pagesData = <%- JSON.stringify(pages || []) %>;
+            </script>
+            <script src="/js/auth/grupos/grupos_paginas.js"></script>
+        </main>
+
+        <%- include(`${base}/footer`) %>
     </body>
 
 </html>

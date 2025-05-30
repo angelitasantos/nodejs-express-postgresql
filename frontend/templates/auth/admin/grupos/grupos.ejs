@@ -2,32 +2,24 @@
 <html lang="pt-BR">
 
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <% const base = '../../../partials'; %>
+        <%- include(`${base}/head`, { title: 'Lista de Grupos' }) %>
         <meta name="csrf-token" content="<%= csrfToken %>">
-        <title>Lista de Grupos</title>
-        <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
-        <link rel="stylesheet" href="/css/style.css" />
     </head>
 
     <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/usuarios">Usuários</a>
-            <a href="/grupos">Grupos</a>
-            <a href="/paginas">Páginas</a>
-            <a href="/permissoes">Permissões</a>
-        </nav>
-        
-        <div id="app">
-            <div class="loader">Carregando registros...</div>
-        </div>
-        
-        <!-- Script que fará a chamada à API -->
-        <script>
-            const CSRF_TOKEN = "<%= csrfToken %>";
-        </script>
-        <script src="/js/auth/grupos/grupos.js"></script>
+        <%- include(`${base}/header`) %>
+
+        <main class="container">
+            <div id="app"></div>
+
+            <script>
+                const CSRF_TOKEN = "<%= csrfToken %>";
+            </script>
+            <script src="/js/auth/grupos/grupos.js"></script>
+        </main>
+
+        <%- include(`${base}/footer`) %>
     </body>
 
 </html>

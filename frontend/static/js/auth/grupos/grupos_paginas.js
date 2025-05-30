@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.createElement('form');
     form.id = 'group-pages-form';
 
+    const submit = document.createElement('button');
+    submit.textContent = 'Salvar Acesso às Páginas';
+    submit.className = 'btn';
+    form.appendChild(submit);
+
     const table = document.createElement('table');
     table.className = 'tabela-registros';
     
@@ -33,10 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     form.appendChild(table);
-
-    const submit = document.createElement('button');
-    submit.textContent = 'Salvar Acesso às Páginas';
-    form.appendChild(submit);
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();

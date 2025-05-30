@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.createElement('button');
     submitBtn.type = 'submit';
     submitBtn.textContent = 'Salvar Alterações';
+    submitBtn.className = 'btn';
     form.appendChild(submitBtn);
 
     app.appendChild(form);

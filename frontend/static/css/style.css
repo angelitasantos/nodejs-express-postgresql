@@ -20,7 +20,7 @@ body {
 
 header {
     background-color: #2c3e50;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
 }
 
 header nav {
@@ -33,7 +33,7 @@ header nav {
 header nav a {
     color: white;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.1rem 1rem;
     border-radius: 4px;
     transition: background-color 0.3s;
 }
@@ -82,7 +82,6 @@ textarea {
 button {
     background-color: #4CAF50;
     color: white;
-    padding: 5px 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -146,33 +145,56 @@ input[type="checkbox"], label {
 
 .btn {
     display: inline-block;
-    padding: 0.20rem 0.4rem;
+    padding: 0.25rem 0.5rem;
     background: #4CAF50;
     color: white;
     text-decoration: none;
-    border-radius: 4px;
     margin-bottom: 0.1rem;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    text-decoration: none;
 }
 
 .btn-editar {
+    background-color: #796b00;
     color: #cedcea;
-    text-decoration: none;
-    margin-right: 0.5rem;
-    font-size: 0.7rem;
 }
 
 .btn-editar:hover {
-    background-color: #2b86e0;
+    background-color: #e5cf23;
+    color: #140101;
 }
 
 .btn-delete {
-    background: #f44336;
+    background-color: #f44336;
     color: white;
-    border: none;
-    padding: 0.25rem 0.5rem;
-    border-radius: 3px;
-    cursor: pointer;
 }
+
+.btn-delete:hover {
+    background-color: #ed6363;
+}
+
+.btn-paginas {
+    background-color: #0b0258;
+    color: white;
+}
+
+.btn-paginas:hover {
+    background-color: #3323c2;
+}
+
+.btn-permissoes {
+    background-color: #015440;
+    color: white;
+}
+
+.btn-permissoes:hover {
+    background-color: #1fcca3;
+}
+
+
 /* Estilo para o toggle switch */
 .switch {
     position: relative;
@@ -229,17 +251,6 @@ input:checked + .slider:before {
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
-}
-
-.btn-delete {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-delete:hover {
-    background-color: #d32f2f;
 }
 
 /* Estilo para as notificações (toast) */
