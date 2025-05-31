@@ -12,11 +12,6 @@ const pool = new Pool({
 // Função para executar queries
 exports.query = (text, params) => pool.query(text, params);
 
-// Teste opcional (remova depois)
-pool.query('SELECT * FROM contatos LIMIT 1')
-    .then(() => console.log('✅ Tabela contatos verificada'))
-    .catch(err => console.error('❌ Erro na tabela contatos:', err.message));
-
 // Função para testar a conexão
 async function testConnection() {
     try {
@@ -26,7 +21,7 @@ async function testConnection() {
 
         // Opcional: Executar uma query simples para verificação adicional
         const res = await pool.query('SELECT NOW() as current_time');
-        console.log('⏱️ Hora atual no banco:', res.rows[0].current_time);
+        // console.log('⏱️ Hora atual no banco:', res.rows[0].current_time);
 
         return true;
     } catch (error) {
@@ -69,6 +64,7 @@ async function checkTableExists(tableName) {
 testConnection();
 
 // Verificar tabelas necessárias
+/*
 checkTableExists('contatos');
 checkTableExists('groups');
 checkTableExists('permissions');
@@ -77,5 +73,6 @@ checkTableExists('group_pages');
 checkTableExists('group_permissions');
 checkTableExists('users');
 checkTableExists('user_groups');
+*/
 
 module.exports = pool;
